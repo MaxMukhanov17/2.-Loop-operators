@@ -65,31 +65,29 @@ function addProduct(catalog) {
         })
         }
     }
-    console.log(basket)
+    return(basket)
 };
 
 
-function removeProduct(basketpar) {
-    for (var basketId in basketpar) {
-        var productId = basketpar[basketId].goodId
-        var product = basketpar[basketId]
-        
-        if (productId === 1) {
-            var delIn = basket.indexOf(product)
-            delete basketpar[delIn]
-        }
+function removeProduct(goodIndex, amount) {
+    for(let i = 0; i < basket.length; i++) {
+        if (basket[i].good == goodIndex) {
+            if (amount >= basket[i].amount) {
+                basket.splice(i, 1);
+                return;
+            } 
+            basket[i].amount -= amount;
+        }    
     }
-    console.log(basketpar)
-};
+    return basket
+}
 
 
-function cleanBasket(basketG) {
-    for (var basketCl in basketG) {
-        delete basketG[basketCl]
-    }
-    console.log(basketG)
-};
 
+function clearBasket(basket) {
+    basket.splice(0, basket.length);
+    return basket
+}
 
 
 function quantityAndCost (basketQua, catalogPrice) {
@@ -113,13 +111,12 @@ function quantityAndCost (basketQua, catalogPrice) {
         totalAmount: sumAmount,
         totalSumm: sumPrice,
     }
-    console.log(quanCost) 
-    
+    return(quanCost) 
 };
 
 
 
 addProduct(catalog)
 removeProduct(basket)
-cleanBasket(basket)
+clearBasket(basket)
 quantityAndCost(basket, catalog)
